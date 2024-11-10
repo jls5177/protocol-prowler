@@ -1,0 +1,2 @@
+# Copyright (c) 2024 Justin Simon
+# SPDX-License-Identifier: Apache-2.0
