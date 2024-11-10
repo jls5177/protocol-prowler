@@ -1,0 +1,70 @@
+# Copyright (c) 2024 Justin Simon
+# SPDX-License-Identifier: Apache-2.0
+
+menu "Zephyr"
+source "Kconfig.zephyr"
+endmenu
+
+module = I2C_TARGET_APP
+module-str = i2cTarget
+source "subsys/logging/Kconfig.template.log_config"
+
+#source "app/common/Kconfig"
+
+config I2C_TARGET_APP_BOOT_BANNER
+	bool "uExerciser boot banner"
+	default y if BOOT_BANNER
+	select PRINTK
+	help
+	  Print the firmware version during boot up.
+
+config I2C_TARGET_APP_USB_MANUFACTURER
+	string "USB device manufacturer string"
+	default "uExerciser"
+	help
+	  USB device manufacturer string.
+
+config I2C_TARGET_APP_USB_PRODUCT
+	string "USB device product string"
+	default "USB to Serial IO adapter"
+	help
+	  USB product string.
+
+config I2C_TARGET_APP_USB_VID
+	hex "USB device Vendor ID (VID)"
+	default 0x0955
+	help
+	  USB device Vendor ID (VID).
+
+config I2C_TARGET_APP_USB_PID
+	hex "USB device Product ID (PID)"
+	default 0x1234
+	help
+	  USB device Product ID (PID).
+
+config I2C_TARGET_APP_USB_MAX_POWER
+	int "USB device maximum power"
+	default 125
+	range 0 250
+	help
+	  USB maximum current draw in milliampere (mA) divided by 2.
+	  A value of 125 results in a maximum current draw value of 250 mA.
+
+if USB_DEVICE_STACK
+
+configdefault USB_DEVICE_MANUFACTURER
+	default I2C_TARGET_APP_USB_MANUFACTURER
+
+configdefault USB_DEVICE_PRODUCT
+	default I2C_TARGET_APP_USB_PRODUCT
+
+configdefault USB_DEVICE_VID
+	default I2C_TARGET_APP_USB_VID
+
+configdefault USB_DEVICE_PID
+	default I2C_TARGET_APP_USB_PID
+
+configdefault USB_MAX_POWER
+	default I2C_TARGET_APP_USB_MAX_POWER
+
+endif # USB_DEVICE_STACK
