@@ -20,7 +20,7 @@
 
 #include "zephyr/app_version.h"
 
-LOG_MODULE_REGISTER(main, CONFIG_MICROEXERCISER_LOG_LEVEL);
+LOG_MODULE_REGISTER(main, CONFIG_I2C_TARGET_APP_LOG_LEVEL);
 
 #define NODE_EP0 DT_NODELABEL(eeprom0)
 #define NODE_EP1 DT_NODELABEL(eeprom1)
@@ -55,9 +55,9 @@ int main(void)
 	int addr_1 = DT_REG_ADDR(NODE_EP1);
 	uint8_t addr_1_width = DT_PROP_OR(NODE_EP1, address_width, 8);
 
-#ifdef CONFIG_MICROEXERCISER_BOOT_BANNER
+#ifdef CONFIG_I2C_TARGET_APP_BOOT_BANNER
     printk("*** uExerciser firmware version " APP_VERSION_STRING " ***\n");
-#endif /* CONFIG_MICROEXERCISER_BOOT_BANNER */
+#endif /* CONFIG_I2C_TARGET_APP_BOOT_BANNER */
 
     LOG_DBG("Found EEPROM 0 on I2C bus device %s at addr %02x\n",
              i2c_0->name, addr_0);
